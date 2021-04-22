@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   data-name="Layer 1"
+   id="Layer_1"
+   viewBox="0 0 64 64"
+   version="1.1"
+   sodipodi:docname="winner.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07, custom)">
+  <metadata
+     id="metadata19">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     id="namedview17"
+     showgrid="false"
+     inkscape:zoom="5.5859375"
+     inkscape:cx="11.993306"
+     inkscape:cy="33.641903"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Layer_1" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">.cls-1,.cls-2{fill:none;stroke:#ffb90b;stroke-width:2px;}.cls-1{stroke-miterlimit:10;}.cls-2{stroke-linecap:round;stroke-linejoin:round;}</style>
+  </defs>
+  <title
+     id="title6" />
+  <ellipse
+     class="cls-1"
+     cx="31.958523"
+     cy="31.996763"
+     id="circle8"
+     style="stroke:#a5dc86;stroke-opacity:1"
+     rx="30.680182"
+     ry="30.716892" />
+  <ellipse
+     class="cls-1"
+     cx="19.175114"
+     cy="23.037668"
+     id="circle10"
+     style="stroke:#a5dc86;stroke-opacity:1"
+     rx="5.1133637"
+     ry="5.119482" />
+  <ellipse
+     class="cls-1"
+     cx="44.741932"
+     cy="23.037668"
+     id="circle12"
+     style="stroke:#a5dc86;stroke-opacity:1"
+     rx="5.1133637"
+     ry="5.119482" />
+  <path
+     class="cls-2"
+     d="m 19.175113,38.831271 c 0.779788,6.399352 6.212737,10.149373 12.783409,10.149373 6.570673,0 12.016405,-3.698826 12.783409,-10.149373"
+     id="path14"
+     style="stroke:#a5dc86;stroke-opacity:1" />
+</svg>

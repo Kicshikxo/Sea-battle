@@ -1,0 +1,41 @@
+{
+  "name": "Online-Sea-Battle",
+  "version": "1.5.42",
+  "description": "Sea Battle is an online game for two opponents. Come in, arrange the ships, wait for the enemy and start playing together.",
+  "main": "index.js",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cum": "^1.5.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-sslify": "^1.2.0",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.17.0"
+  },
+  "scripts": {
+    "start": "NODE_ENV=production node index.js"
+  },
+  "engines": {
+    "node": "15.x"
+  },
+  "keywords": [
+	"sea battle",
+	"sea battle online",
+	"sea fight",
+	"sea fight online",
+	"морской бой",
+	"морской бой онлайн",
+	"game",
+	"sea",
+	"battle",
+	"online",
+	"игра",
+	"морской",
+	"бой",
+	"онлайн"
+  ],
+  "author": "Kicshikxo<vip.game.game6@gmail.com>",
+  "license": "ISC"
+}

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang = 'ru'>
+<head>
+ 	<meta name = 'viewport' content = 'width = device-width, initial-scale = 1, maximum-scale = 1, minimum-scale = 1, user-scalable = no, minimal-ui'>
+	<meta charset = "UTF-8">
+	<meta name = 'full-screen' content = 'yes'>
+	<meta http-equiv = "X-UA-Compatible" content = "ie=edge">
+	<link rel = "stylesheet" href = "/styles/bootstrap.css">
+	<!-- <link rel = "stylesheet" href = "/styles/style.css"> -->
+	
+
+	<!-- <link rel = 'prefetch' href = '/styles/style.css' as = 'style'> -->
+	<link rel = 'prefetch' href = '/styles/bootstrap.css' as = 'style'>
+	<!-- <link rel = 'prefetch' href = '/styles/noty.css' as = 'style'> -->
+
+	<link rel = 'prefetch' href = '/js/noty.min.js' as = 'script'>
+	<link rel = 'prefetch' href = '/js/jquery.js' as = 'script'>
+	<link rel = 'prefetch' href = '/js/jquery-ui.min.js' as = 'script'>
+	<link rel = 'prefetch' href = '/js/jquery.ui.touch-punch.min.js' as = 'script'>
+	<link rel = 'prefetch' href = '/js/sweetalert.min.js' as = 'script'>
+	<link rel = 'prefetch' href = '/js/socket.io-2.3.1.slim.js' as = 'script'>
+
+	<link rel = 'prefetch' href = '/styles/img/user.svg' as = 'image'>
+	<link rel = 'prefetch' href = '/styles/img/random.svg' as = 'image'>
+	<link rel = 'prefetch' href = '/styles/img/clear.svg' as = 'image'>
+	<link rel = 'prefetch' href = '/styles/img/checkmark.svg' as = 'image'>
+
+	<link rel = 'prefetch' href = '/styles/img/loser.svg' as = 'image'>
+	<link rel = 'prefetch' href = '/styles/img/winner.svg' as = 'image'>
+
+	<meta property = 'og:title' content = 'Морской бой'>
+	<meta property = 'og:site_name' content = 'Морской бой'>
+	<meta property = 'og:description' content = 'Морской бой — онлайн-игра для двух соперников. Заходите, расставляйте корабли, дождитесь противника и начинайте играть вдвоем.'>
+	<meta property = 'og:image' content = '/img/preview.png'>
+	
+	<link rel = 'preload' href = '/styles/fonts/Rubik-Regular.ttf' as = 'font' crossorigin>
+
+	<link rel = 'shortcut icon' href = '/img/favicon.svg'>
+
+	<!-- <link rel="prerender" href="//localhost:3000/create" /> -->
+
+	<title>Морской бой</title>
+
+	<style>
+	
+		@font-face {
+			font-family: 'Rubik';
+			src: url('../styles/fonts/Rubik-Regular.ttf')
+		}
+
+		* {
+			margin:  0;
+			padding: 0;
+			-webkit-user-select: none;
+			box-sizing: border-box;
+			text-align: center;
+			outline: none !important;
+			font-family: Rubik
+		}
+
+		.connection-block {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: row;
+		}
+
+		.line {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+		}
+
+		.vertical-line {
+			height: 100%;
+			width: 5%;
+			padding: 48px 32px;
+		}
+
+		.horizontal-line {
+			width: 75%;
+			height: 5%;
+			padding: 32px;
+		}
+
+		.line:after {
+			content: '';
+			background: lightgray;
+			position: absolute;
+		}
+
+		.vertical-line:after {
+			width: 2px;
+			height: 100%;
+		}
+
+		.horizontal-line:after {
+			width: 100%;
+			height: 2px;
+		}
+		
+		.line p {
+			background: #FFF;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 1;
+			margin-bottom: 0;
+		}
+
+		.vertical-line p {
+			height: 40px;
+		}
+
+		.horizontal-line p {
+			width: 50px;
+		}
+
+		.connection-column {
+			z-index: 2;
+		}
+
+		@media (max-width: 767px) {
+			.connection-block {
+				flex-direction: column;
+			}
+			.vertical-line {
+				display: none;
+			}
+		}
+
+		@media (min-width: 768px){
+			.connection-block {
+				flex-direction: row;
+			}
+			.horizontal-line {
+				display: none;
+			}
+		}
+
+	</style>
+
+ </head>
+ <body>
+	<div class = 'd-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm'>
+	<h4 class = 'my-0 mr-md-auto'>Морской бой</h4>
+	</div>
+	<div class = 'py-3 text-center'>
+		<h1>Добро пожаловать в Морской бой!</h1>
+	</div>
+ 	<div class = 'container'>
+		<div class = 'connection-block'>
+			<div class = 'connection-column'>
+				<form id = 'connection-form' class = 'd-flex justify-content-center flex-column'>
+					<label for = 'room-id' class = 'text-center h5'>Введите код комнаты</label>
+					<input type='text' name = 'room-id' id = 'room-id' class = 'form-control mb-3' autocomplete = 'off' maxlength = '20' placeholder = 'Код комнаты'>
+					<input type = 'submit' value = 'Подключиться' class = 'btn btn-primary' id = 'submit-button'>
+				</form>
+			</div>
+			<div class = 'line vertical-line'><p class = 'h5'>или</p></div>
+			<div class = 'line horizontal-line'><p class = 'h5'>или</p></div>
+			<div class = 'connection-column'>
+				<button class = 'btn btn-primary' onclick = 'window.location = "/create"'>
+					Создать комнату
+				</button>
+			</div>
+		</div>
+
+		<!-- <hr> -->
+	</div>
+	<script src = '/js/socket.io-2.3.1.slim.js'></script>
+	<script>
+		query = (query) => document.querySelector(query)
+		queryAll = (query) => document.querySelectorAll(query)
+
+		const socket = io({
+			transports: ['websocket']
+		})
+
+		function init(){
+			let roomIdInput = query('#room-id')
+			query('#connection-form').onsubmit = function(e){
+				e.preventDefault()
+				if (roomIdInput.value){
+					socket.emit('connect to room', {roomId: roomIdInput.value})
+				}
+			}
+
+			socket.on('connect to room', function(data){
+				window.location = `/room/${data.roomId}`
+			})
+
+			socket.on('connecting room not found', function(){
+				swal('Ошибка подключения','Запрашиваемая комната не найдена','error')
+			})
+
+			socket.on('connecting room is full', function(){
+				swal('Ошибка подключения','Запрашиваемая комната заполнена','error').then(() => {
+					roomIdInput.value = ''
+				})
+			})
+			socket.on('console log', function (data){
+				console.log(data)
+			})
+		}
+
+		window.onload = init
+	</script>
+	<script src = '/js/sweetalert.min.js' defer async></script>
+ </body>
+ </html> 
