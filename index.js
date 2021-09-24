@@ -16,8 +16,8 @@ app.use('/img', express.static(__dirname + '/static/styles/img'));
 app.use('/emotes', express.static(__dirname + '/static/styles/img/emotes'));
 app.use('/js', express.static(__dirname + '/static/js'));
 
-app.engine('html', ejs.renderFile);
-app.set('view engine', 'html');
+app.engine('html', ejs.renderFile)
+app.set('view engine', 'html')
 
 app.get('/create', async function (request, response){
     let roomId = await createRoom()
