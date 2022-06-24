@@ -6,7 +6,7 @@
   "dependencies": {
     "compression": "^1.7.4",
     "cum": "^1.5.0",
-    "ejs": "^3.1.5",
+    "ejs": "^3.1.7",
     "express": "^4.17.1",
     "express-sslify": "^1.2.0",
     "socket.io": "^4.2.0"
