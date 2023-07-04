@@ -204,7 +204,7 @@ io.on('connection', async function (socket) {
 
     socket.on('shoot request', async function (data) {
         if (!data || !data.x || !data.y) return
-        currentRoom = await getRoomById(socket.roomId)
+        let currentRoom = await getRoomById(socket.roomId)
         if (currentRoom) {
             let targetSocket
 
@@ -363,7 +363,7 @@ io.on('connection', async function (socket) {
     // Читы
 
     socket.on('use cheats', async function () {
-        currentRoom = await getRoomById(socket.roomId)
+        let currentRoom = await getRoomById(socket.roomId)
         if (currentRoom) {
             let targetSocket
             if (currentRoom.host === socket && currentRoom.participant && currentRoom.participant.ships) {
