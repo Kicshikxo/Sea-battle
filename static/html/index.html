@@ -1,169 +1,857 @@
 <!DOCTYPE html>
-<html lang = 'ru'>
-<head>
-	<meta name = 'viewport' content = 'width = device-width, initial-scale = 1, maximum-scale = 1, minimum-scale = 1, user-scalable = no, minimal-ui, shrink-to-fit=no'>
-	<meta charset = 'UTF-8'>
-	<meta name = 'full-screen' content = 'yes'>
-	<meta http-equiv = 'X-UA-Compatible' content = 'ie=edge'>
-	<link rel = 'stylesheet' href = '/styles/bootstrap.css'>
-	<link rel = 'stylesheet' href = '/styles/style.css'>
-	<!-- <link rel = 'stylesheet' href = '/styles/noty.css'> -->
-	<title>Морской бой</title>
+<html lang="ru">
+    <head>
+        <meta name="viewport" content="width = device-width, initial-scale = 1, maximum-scale = 1, minimum-scale = 1, user-scalable = no, minimal-ui, shrink-to-fit=no" />
+        <meta charset="UTF-8" />
+        <meta name="full-screen" content="yes" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="/styles/bootstrap.css" />
+        <link rel="stylesheet" href="/styles/style.css" />
+        <title>Морской бой</title>
 
-	<meta property = 'og:title' content = 'Морской бой'>
-	<meta property = 'og:site_name' content = 'Морской бой'>
-	<meta property = 'og:description' content = 'Морской бой — онлайн-игра для двух соперников. Заходите, расставляйте корабли, дождитесь противника и начинайте играть вдвоем.'>
-	<meta property = 'og:image' content = '/img/preview.png'>
-	
-	<link rel = 'preload' href = '/styles/fonts/Rubik-Regular.ttf' as = 'font' crossorigin>
+        <meta property="og:title" content="Морской бой" />
+        <meta property="og:site_name" content="Морской бой" />
+        <meta property="og:description" content="Морской бой — онлайн-игра для двух соперников. Заходите, расставляйте корабли, дождитесь противника и начинайте играть вдвоем." />
+        <meta property="og:image" content="/img/preview.png" />
 
-	<link rel = 'shortcut icon' href = '/img/favicon.svg'>
-</head>
-<body>
-	<div class = 'd-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm'>
-		<h4 class = 'my-0 mr-md-auto'>Морской бой</h4>
-		<nav class = 'my-2 my-md-0 mr-md-3'>
-			<span class = 'p-2 text-dark' id = 'room-id'></span>
-			<span class = 'p-2 text-dark' id = 'role'></span>
-		</nav>
-		<!-- <a class = 'btn btn-outline-primary' href = '/create'>Новая комната</a> -->
-	</div>
-	<div class = 'container'>
-		<div class = 'battlefields'>
-			<div class = 'ships-block'>
-				<div class = 'ships-line'>
-					<div class = 'ship-port ship-size-4'>
-						<div class = 'ship ship-size-4 horizontal' data-index = '0' data-size = '4'></div>
-					</div>
-				</div>
-				<div class = 'ships-line'>
-					<div class = 'ship-port ship-size-3'>
-						<div class = 'ship ship-size-3 horizontal' data-index = '1' data-size = '3'></div>
-					</div>
-					<div class = 'ship-port ship-size-3'>
-						<div class = 'ship ship-size-3 horizontal' data-index = '2' data-size = '3'></div>
-					</div>
-				</div>
-				<div class = 'ships-line'>
-					<div class = 'ship-port ship-size-2'>
-						<div class = 'ship ship-size-2 horizontal' data-index = '3' data-size = '2'></div>
-					</div>
-					<div class = 'ship-port ship-size-2'>
-						<div class = 'ship ship-size-2 horizontal' data-index = '4' data-size = '2'></div>
-					</div>
-					<div class = 'ship-port ship-size-2'>
-						<div class = 'ship ship-size-2 horizontal' data-index = '5' data-size = '2'></div>
-					</div>
-				</div>
-				<div class = 'ships-line'>
-					<div class = 'ship-port ship-size-1'>
-						<div class = 'ship ship-size-1 horizontal' data-index = '6' data-size = '1'></div>
-					</div>
-					<div class = 'ship-port ship-size-1'>
-						<div class = 'ship ship-size-1 horizontal' data-index = '7' data-size = '1'></div>
-					</div>
-					<div class = 'ship-port ship-size-1'>
-						<div class = 'ship ship-size-1 horizontal' data-index = '8' data-size = '1'></div>
-					</div>
-					<div class = 'ship-port ship-size-1'>
-						<div class = 'ship ship-size-1 horizontal' data-index = '9' data-size = '1'></div>
-					</div>
-				</div>
-				<div class = 'ships-block-buttons'>
-					<button class = 'random-button' onclick = 'generateRandomPlayerField()' title = 'Сгенерировать поле случайным образом'></button>
-					<button class = 'clear-button'  onclick = 'clearPlayerField()' title = 'Очистить поле и вернуть корабли в порт'></button>
-				</div>
-			</div>
-			<div class = 'battlefield-stats player'>
-				<div class = 'ships-line'>
-					<div class = 'stat-ship ship-size-4'><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span></div>
-				</div>
-				<div class = 'ships-line'>
-					<div class = 'stat-ship ship-size-3'><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span></div>
-					<div class = 'stat-ship ship-size-3'><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span></div>
-				</div>
-				<div class = 'ships-line'>
-					<div class = 'stat-ship ship-size-2'><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span></div>
-					<div class = 'stat-ship ship-size-2'><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span></div>
-					<div class = 'stat-ship ship-size-2'><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span></div>
-				</div>
-				<div class = 'ships-line'>
-					<div class = 'stat-ship ship-size-1'><span class = 'stat-ship-segment'></span></div>
-					<div class = 'stat-ship ship-size-1'><span class = 'stat-ship-segment'></span></div>
-					<div class = 'stat-ship ship-size-1'><span class = 'stat-ship-segment'></span></div>
-					<div class = 'stat-ship ship-size-1'><span class = 'stat-ship-segment'></span></div>
-				</div>
-			</div>
-			<table class = 'battlefield player'>
-				<tr><td data-x = '0' data-y = '0' >  </td><td                data-x = '1'  data-y = '0' >А                          </td><td                data-x = '2' data-y = '0' >Б                          </td><td                data-x = '3' data-y = '0' >В                          </td><td                data-x = '4' data-y = '0' >Г                          </td><td                data-x = '5' data-y = '0' >Д                          </td><td                data-x = '6' data-y = '0' >Е                          </td><td                data-x = '7' data-y = '0' >Ж                          </td><td                data-x = '8' data-y = '0' >З                          </td><td                data-x = '9' data-y = '0' >И                          </td><td                data-x = '10' data-y = '0' >К                          </td></tr>
-				<tr><td data-x = '0' data-y = '1' >1 </td><td class = 'cell' data-x = '1'  data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '1' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '2' >2 </td><td class = 'cell' data-x = '1'  data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '2' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '3' >3 </td><td class = 'cell' data-x = '1'  data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '3' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '4' >4 </td><td class = 'cell' data-x = '1'  data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '4' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '5' >5 </td><td class = 'cell' data-x = '1'  data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '5' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '6' >6 </td><td class = 'cell' data-x = '1'  data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '6' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '7' >7 </td><td class = 'cell' data-x = '1'  data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '7' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '8' >8 </td><td class = 'cell' data-x = '1'  data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '8' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '9' >9 </td><td class = 'cell' data-x = '1'  data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '9' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '10'>10</td><td class = 'cell' data-x = '1'  data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '10'><div class = 'inner'></div></td></tr>
-			</table>
-			<svg aria-hidden="true" focusable="false" class = 'next-move-arrow' role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"></path></svg>
-			<table class = 'battlefield enemy'>
-				<tr><td data-x = '0' data-y = '0' >  </td><td                data-x = '1'  data-y = '0' >А                          </td><td                data-x = '2' data-y = '0' >Б                          </td><td                data-x = '3' data-y = '0' >В                          </td><td                data-x = '4' data-y = '0' >Г                          </td><td                data-x = '5' data-y = '0' >Д                          </td><td                data-x = '6' data-y = '0' >Е                          </td><td                data-x = '7' data-y = '0' >Ж                          </td><td                data-x = '8' data-y = '0' >З                          </td><td                data-x = '9' data-y = '0' >И                          </td><td                data-x = '10' data-y = '0' >К                          </td></tr>
-				<tr><td data-x = '0' data-y = '1' >1 </td><td class = 'cell' data-x = '1'  data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '1' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '1' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '2' >2 </td><td class = 'cell' data-x = '1'  data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '2' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '2' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '3' >3 </td><td class = 'cell' data-x = '1'  data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '3' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '3' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '4' >4 </td><td class = 'cell' data-x = '1'  data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '4' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '4' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '5' >5 </td><td class = 'cell' data-x = '1'  data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '5' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '5' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '6' >6 </td><td class = 'cell' data-x = '1'  data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '6' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '6' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '7' >7 </td><td class = 'cell' data-x = '1'  data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '7' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '7' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '8' >8 </td><td class = 'cell' data-x = '1'  data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '8' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '8' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '9' >9 </td><td class = 'cell' data-x = '1'  data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '9' ><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '9' ><div class = 'inner'></div></td></tr>
-				<tr><td data-x = '0' data-y = '10'>10</td><td class = 'cell' data-x = '1'  data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '2' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '3' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '4' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '5' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '6' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '7' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '8' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '9' data-y = '10'><div class = 'inner'></div></td><td class = 'cell' data-x = '10' data-y = '10'><div class = 'inner'></div></td></tr>
-			</table>
-			<div class = 'battlefield-stats enemy'>
-				<div class = 'ships-line'>
-					<div class = 'stat-ship ship-size-4'><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span></div>
-				</div>
-				<div class = 'ships-line'>
-					<div class = 'stat-ship ship-size-3'><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span></div>
-					<div class = 'stat-ship ship-size-3'><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span></div>
-				</div>
-				<div class = 'ships-line'>
-					<div class = 'stat-ship ship-size-2'><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span></div>
-					<div class = 'stat-ship ship-size-2'><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span></div>
-					<div class = 'stat-ship ship-size-2'><span class = 'stat-ship-segment'></span><span class = 'stat-ship-segment'></span></div>
-				</div>
-				<div class = 'ships-line'>
-					<div class = 'stat-ship ship-size-1'><span class = 'stat-ship-segment'></span></div>
-					<div class = 'stat-ship ship-size-1'><span class = 'stat-ship-segment'></span></div>
-					<div class = 'stat-ship ship-size-1'><span class = 'stat-ship-segment'></span></div>
-					<div class = 'stat-ship ship-size-1'><span class = 'stat-ship-segment'></span></div>
-				</div>
-			</div>
-		</div>
-		<button class = 'btn btn-outline-primary' id = 'ready-button' onclick = 'toggleReady()' disabled>Готов</button>
-		<div id = 'enemy-icon'></div>
-		<hr>
-		<form id = 'message-form'>
-			<div class = 'input-group'>
-				<input type = 'text' class = 'form-control' name = 'message' autocomplete = 'off' id = 'message' maxlength = '1000' placeholder = 'Введите сообщение' aria-describedby = 'button-addon2'>
-				<div class = 'input-group-append'>
-					<div class = 'emote-menu'></div>
-					<button class = 'btn btn-outline-secondary emote-menu-button' onclick = 'toggleEmoteMenu()' type = 'button'></button>
-					<button class = 'btn btn-outline-primary submit-message' type = 'submit'>Отправить</button>
-				</div>
-			</div>
-		</form>
-		<div class = 'opponent-writes hidden'>Печатает <div class = 'writing-dots'><span></span><span></span><span></span></div></div>
-		<div id = 'all-messages' class = 'mb-3'></div>
-	</div>
-	<script src = '/js/socket.io.4.2.0.min.js'></script>
-	<script>const socket=io({transports:['websocket']});socket.roomId='<%= roomId %>'</script>	
-	<script src = '/js/main.obf.js' defer></script>
-	<script src = '/js/jquery-ui-draggable-touch-min-full.js' defer></script>
-	<script src = '/js/jquery-ui-effect-shake-full.js' defer></script>
-	<script src = '/js/noty.min.js' defer></script>
-	<script src = '/js/sweetalert.min.js' defer></script>
-</body>
+        <link rel="preload" href="/styles/fonts/Rubik-Regular.ttf" as="font" crossorigin />
+
+        <link rel="shortcut icon" href="/img/favicon.svg" />
+    </head>
+    <body>
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+            <h4 class="my-0 mr-md-auto">Морской бой</h4>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <span class="p-2 text-dark" id="room-id"></span>
+                <span class="p-2 text-dark" id="role"></span>
+            </nav>
+        </div>
+        <div class="container">
+            <div class="battlefields">
+                <div class="ships-block">
+                    <div class="ships-line">
+                        <div class="ship-port ship-size-4">
+                            <div class="ship ship-size-4 horizontal" data-index="0" data-size="4"></div>
+                        </div>
+                    </div>
+                    <div class="ships-line">
+                        <div class="ship-port ship-size-3">
+                            <div class="ship ship-size-3 horizontal" data-index="1" data-size="3"></div>
+                        </div>
+                        <div class="ship-port ship-size-3">
+                            <div class="ship ship-size-3 horizontal" data-index="2" data-size="3"></div>
+                        </div>
+                    </div>
+                    <div class="ships-line">
+                        <div class="ship-port ship-size-2">
+                            <div class="ship ship-size-2 horizontal" data-index="3" data-size="2"></div>
+                        </div>
+                        <div class="ship-port ship-size-2">
+                            <div class="ship ship-size-2 horizontal" data-index="4" data-size="2"></div>
+                        </div>
+                        <div class="ship-port ship-size-2">
+                            <div class="ship ship-size-2 horizontal" data-index="5" data-size="2"></div>
+                        </div>
+                    </div>
+                    <div class="ships-line">
+                        <div class="ship-port ship-size-1">
+                            <div class="ship ship-size-1 horizontal" data-index="6" data-size="1"></div>
+                        </div>
+                        <div class="ship-port ship-size-1">
+                            <div class="ship ship-size-1 horizontal" data-index="7" data-size="1"></div>
+                        </div>
+                        <div class="ship-port ship-size-1">
+                            <div class="ship ship-size-1 horizontal" data-index="8" data-size="1"></div>
+                        </div>
+                        <div class="ship-port ship-size-1">
+                            <div class="ship ship-size-1 horizontal" data-index="9" data-size="1"></div>
+                        </div>
+                    </div>
+                    <div class="ships-block-buttons">
+                        <button class="random-button" onclick="generateRandomPlayerField()" title="Сгенерировать поле случайным образом"></button>
+                        <button class="clear-button" onclick="clearPlayerField()" title="Очистить поле и вернуть корабли в порт"></button>
+                    </div>
+                </div>
+                <div class="battlefield-stats player">
+                    <div class="ships-line">
+                        <div class="stat-ship ship-size-4"><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span></div>
+                    </div>
+                    <div class="ships-line">
+                        <div class="stat-ship ship-size-3"><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span></div>
+                        <div class="stat-ship ship-size-3"><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span></div>
+                    </div>
+                    <div class="ships-line">
+                        <div class="stat-ship ship-size-2"><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span></div>
+                        <div class="stat-ship ship-size-2"><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span></div>
+                        <div class="stat-ship ship-size-2"><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span></div>
+                    </div>
+                    <div class="ships-line">
+                        <div class="stat-ship ship-size-1">
+                            <span class="stat-ship-segment"></span>
+                        </div>
+                        <div class="stat-ship ship-size-1">
+                            <span class="stat-ship-segment"></span>
+                        </div>
+                        <div class="stat-ship ship-size-1">
+                            <span class="stat-ship-segment"></span>
+                        </div>
+                        <div class="stat-ship ship-size-1">
+                            <span class="stat-ship-segment"></span>
+                        </div>
+                    </div>
+                </div>
+                <table class="battlefield player">
+                    <tr>
+                        <td data-x="0" data-y="0"></td>
+                        <td data-x="1" data-y="0">А</td>
+                        <td data-x="2" data-y="0">Б</td>
+                        <td data-x="3" data-y="0">В</td>
+                        <td data-x="4" data-y="0">Г</td>
+                        <td data-x="5" data-y="0">Д</td>
+                        <td data-x="6" data-y="0">Е</td>
+                        <td data-x="7" data-y="0">Ж</td>
+                        <td data-x="8" data-y="0">З</td>
+                        <td data-x="9" data-y="0">И</td>
+                        <td data-x="10" data-y="0">К</td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="1">1</td>
+                        <td class="cell" data-x="1" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="2">2</td>
+                        <td class="cell" data-x="1" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="3">3</td>
+                        <td class="cell" data-x="1" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="4">4</td>
+                        <td class="cell" data-x="1" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="5">5</td>
+                        <td class="cell" data-x="1" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="6">6</td>
+                        <td class="cell" data-x="1" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="7">7</td>
+                        <td class="cell" data-x="1" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="8">8</td>
+                        <td class="cell" data-x="1" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="9">9</td>
+                        <td class="cell" data-x="1" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="10">10</td>
+                        <td class="cell" data-x="1" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                </table>
+                <svg aria-hidden="true" focusable="false" class="next-move-arrow" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                    <path
+                        d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"
+                    ></path>
+                </svg>
+                <table class="battlefield enemy">
+                    <tr>
+                        <td data-x="0" data-y="0"></td>
+                        <td data-x="1" data-y="0">А</td>
+                        <td data-x="2" data-y="0">Б</td>
+                        <td data-x="3" data-y="0">В</td>
+                        <td data-x="4" data-y="0">Г</td>
+                        <td data-x="5" data-y="0">Д</td>
+                        <td data-x="6" data-y="0">Е</td>
+                        <td data-x="7" data-y="0">Ж</td>
+                        <td data-x="8" data-y="0">З</td>
+                        <td data-x="9" data-y="0">И</td>
+                        <td data-x="10" data-y="0">К</td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="1">1</td>
+                        <td class="cell" data-x="1" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="1">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="2">2</td>
+                        <td class="cell" data-x="1" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="2">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="3">3</td>
+                        <td class="cell" data-x="1" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="3">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="4">4</td>
+                        <td class="cell" data-x="1" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="4">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="5">5</td>
+                        <td class="cell" data-x="1" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="5">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="6">6</td>
+                        <td class="cell" data-x="1" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="6">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="7">7</td>
+                        <td class="cell" data-x="1" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="7">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="8">8</td>
+                        <td class="cell" data-x="1" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="8">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="9">9</td>
+                        <td class="cell" data-x="1" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="9">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-x="0" data-y="10">10</td>
+                        <td class="cell" data-x="1" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="2" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="3" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="4" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="5" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="6" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="7" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="8" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="9" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                        <td class="cell" data-x="10" data-y="10">
+                            <div class="inner"></div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="battlefield-stats enemy">
+                    <div class="ships-line">
+                        <div class="stat-ship ship-size-4"><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span></div>
+                    </div>
+                    <div class="ships-line">
+                        <div class="stat-ship ship-size-3"><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span></div>
+                        <div class="stat-ship ship-size-3"><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span></div>
+                    </div>
+                    <div class="ships-line">
+                        <div class="stat-ship ship-size-2"><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span></div>
+                        <div class="stat-ship ship-size-2"><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span></div>
+                        <div class="stat-ship ship-size-2"><span class="stat-ship-segment"></span><span class="stat-ship-segment"></span></div>
+                    </div>
+                    <div class="ships-line">
+                        <div class="stat-ship ship-size-1">
+                            <span class="stat-ship-segment"></span>
+                        </div>
+                        <div class="stat-ship ship-size-1">
+                            <span class="stat-ship-segment"></span>
+                        </div>
+                        <div class="stat-ship ship-size-1">
+                            <span class="stat-ship-segment"></span>
+                        </div>
+                        <div class="stat-ship ship-size-1">
+                            <span class="stat-ship-segment"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-outline-primary" id="ready-button" onclick="toggleReady()" disabled>Готов</button>
+            <div id="enemy-icon"></div>
+            <hr />
+            <form id="message-form">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="message" autocomplete="off" id="message" maxlength="1000" placeholder="Введите сообщение" aria-describedby="button-addon2" />
+                    <div class="input-group-append">
+                        <div class="emote-menu"></div>
+                        <button class="btn btn-outline-secondary emote-menu-button" onclick="toggleEmoteMenu()" type="button"></button>
+                        <button class="btn btn-outline-primary submit-message" type="submit">Отправить</button>
+                    </div>
+                </div>
+            </form>
+            <div class="opponent-writes hidden">
+                Печатает
+                <div class="writing-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div id="all-messages" class="mb-3"></div>
+        </div>
+        <script src="/js/socket.io.min.js"></script>
+        <script>
+            const socket = io()
+            socket.roomId = '<%= roomId %>'
+        </script>
+        <script src="/js/main.obf.js" defer></script>
+        <script src="/js/jquery-ui-draggable-touch-min-full.js" defer></script>
+        <script src="/js/jquery-ui-effect-shake-full.js" defer></script>
+        <script src="/js/noty.min.js" defer></script>
+        <script src="/js/sweetalert.min.js" defer></script>
+    </body>
 </html>
