@@ -429,14 +429,15 @@ class Room {
         this.host.emit('connect to room', { roomId: newRoomId })
         let newRoom = await getRoomById(newRoomId)
         newRoom.nextParticipant = this.participant
-
+        
+        let currentRoom = await getRoomById(this.id)
         if (currentRoom.chat) {
             for (let message of currentRoom.chat) {
                 newRoom.chat.push(Object.assign({}, message, { roomId: newRoomId }))
             }
         }
 
-        if (currentRoom.participant.winner) {
+        if (!currentRoom.participant?.winner) {
             newRoom.currentMove = 'participant'
         }
     }
