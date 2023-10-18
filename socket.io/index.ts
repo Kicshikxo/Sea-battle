@@ -11,7 +11,7 @@ export default (nuxtServer: NuxtServer) => {
 
         socket.emit('message', {
             socketId: socket.id,
-            status: 'connected',
+            status: 'connected'
         })
 
         socket.on('message', (data) => {

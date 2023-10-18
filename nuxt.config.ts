@@ -6,6 +6,6 @@ export default defineNuxtConfig({
     modules: ['@pinia/nuxt'],
 
     hooks: {
-        listen: startSocketIOServer,
-    },
+        listen: startSocketIOServer
+    }
 })
